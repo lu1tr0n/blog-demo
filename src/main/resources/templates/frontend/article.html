@@ -1,5 +1,10 @@
-<th:block layout:replace="~{fragments/header}"/>
-
-<h1>Hola [[${name}]]</h1>
-
-<th:block layout:replace="~{fragments/footer}"/>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="frontend/fragments/header :: header" />
+	<body>
+		<div th:replace="frontend/fragments/navigation :: navigation"/>
+		<h1>Hola [[${name}]]</h1>
+	
+		<div th:replace="frontend/fragments/footer :: footer">
+	</body>
+</html>    

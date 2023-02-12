@@ -1,11 +1,13 @@
 package com.luis.navarro.blog.entities;
 
 import java.io.Serializable;
-import jakarta.persistence.Column;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,24 +20,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
-@Table(name = "article")
-public class Article implements Serializable {
+@Table(name = "role")
+public class Role implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(length = 128, nullable = false)
-	private String title;
+    private String name;
 
-	@Column(length = 256)
-	private String description;
-
-	@Column(nullable = false)
-	private int level;
-
-	@Column
-	private boolean published;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 }
