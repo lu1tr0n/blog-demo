@@ -34,16 +34,16 @@ public class User implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String username;
 	
-	@Column(nullable = true, unique = true)
+	@Column(nullable = false, unique = false)
 	private String email;
 	
 	@Column(nullable = false, length = 64)
 	private String password;
 	
-	@Column(name = "first_name", nullable = true)
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	
-	@Column(name = "last_name", nullable = true)
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 
     @Transient

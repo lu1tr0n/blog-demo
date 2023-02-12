@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,35 +34,45 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
     
+    /*
+     * https://hellokoding.com/spring-security-login-logout-thymeleaf/
+     * https://www.codejava.net/frameworks/spring-boot/fix-websecurityconfigureradapter-deprecated
+     * */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	/*
-    	 * http
-            .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-                .permitAll();
-    	 * */
-    	/*http.cors().and().csrf().disable().authorizeHttpRequests(authorize -> authorize
-    	.requestMatchers("/, /login, /registration, /logout").permitAll()
-        .requestMatchers("/api").hasRole("ADMIN")
-        .requestMatchers("/users").hasRole("USER")
-        .anyRequest().authenticated())
-        .logout().logoutUrl("/logout").logoutSuccessUrl("/").and()
-        .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/users").failureUrl("/login?error");*/
-	    	http.authorizeHttpRequests().requestMatchers("/assets/frontend/css/**", "/assets/frontend/js/**", "/registration").permitAll()
-	    	.anyRequest().authenticated()
+	    	http
+	    	.cors()
 	    	.and()
-	    	.formLogin().loginPage("/login").permitAll()
+	    	.csrf()
+	    		.disable()
+	    	.authorizeHttpRequests()
+	    		.requestMatchers("/assets/frontend/css/**", "/assets/frontend/js/**", "/registration")
+	    		.permitAll()
+	    	.anyRequest()
+	    		.authenticated()
 	    	.and()
-	    	.logout().permitAll();
+	    	.formLogin()
+	    		.loginPage("/login")
+	    		//.defaultSuccessUrl("/")
+	    		.failureUrl("/login?error")
+	    		.permitAll()
+	    	.and()
+	    	.logout()
+            	.logoutSuccessUrl("/login?logout=true")
+            	.invalidateHttpSession(true)
+	    		.permitAll();
+	    	
+	    	http.headers().frameOptions().sameOrigin();
+	    	
     	return http.build();
     }
     
+    /* 
+     * @description: Error when login 
+     * site: https://stackoverflow.com/questions/61029340/spring-security-redirects-to-page-with-status-code-999
+     * */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/favicon.ico", "/resources/**", "/error");
+    }
 }

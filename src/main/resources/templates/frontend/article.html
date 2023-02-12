@@ -2,8 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<div th:replace="frontend/fragments/header :: header" />
 	<body>
-		<div th:replace="frontend/fragments/navigation :: navigation"/>
-		<h1>Hola [[${name}]]</h1>
+
+		<div th:replace="frontend/fragments/navigation :: header" />
+		
+		<div class="container-fluid">
+		  <div class="row">
+		    
+		    <div th:replace="frontend/fragments/navigation :: sidebars" />
+		
+		    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		      
+		      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		        <h1 class="h2">Users</h1>
+		        <table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Título</th>
+				      <th scope="col">Descripción</th>
+				      <th scope="col">Level</th>
+				      <th scope="col">Publicado</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
+				    </tr>
+				  </tbody>
+				</table>
+		        </div>
+		      </div>
+
+		    </main>
+		  </div>
+		</div>
 	
 		<div th:replace="frontend/fragments/footer :: footer">
 	</body>

@@ -13,6 +13,8 @@ import com.luis.navarro.blog.services.SecurityService;
 import com.luis.navarro.blog.services.UserService;
 import com.luis.navarro.blog.utils.UserValidator;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class UserController {
 	
@@ -42,13 +44,30 @@ public class UserController {
             return "frontend/registration";
         }
 
+        userForm.setEmail("luis@yopmail.com");
+        userForm.setFirstName("test1");
+        userForm.setLastName("test2");
+        userForm.setRoles(null);
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/frontend/homepage";
+        return "redirect:/";
     }
 
     @GetMapping("/login")
+    public String login(Model model, String error, String logout, HttpServletResponse httpResponse) {
+        if (securityService.isAuthenticated()) {
+            return "redirect:/";
+        }
+
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+        return "frontend/login";
+    }
+    
+    @PostMapping("/login")
     public String login(Model model, String error, String logout) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
@@ -56,10 +75,8 @@ public class UserController {
 
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
-
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-
         return "frontend/login";
     }
 	
