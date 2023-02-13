@@ -16,8 +16,7 @@ public class ArticleController {
 
 	@GetMapping("/article")
 	public String getAll(Model model, @Param("name") String name) {
-		
-		model.addAttribute("article_list", articleService.findAll());
+		model.addAttribute("articleList", articleService.findAll());
 		return "frontend/article";
 	}
 }

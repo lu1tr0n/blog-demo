@@ -37,6 +37,7 @@ public class WebSecurityConfig {
     /*
      * https://hellokoding.com/spring-security-login-logout-thymeleaf/
      * https://www.codejava.net/frameworks/spring-boot/fix-websecurityconfigureradapter-deprecated
+     * https://stackoverflow.com/questions/74609057/how-to-fix-spring-authorizerequests-is-deprecated
      * */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
