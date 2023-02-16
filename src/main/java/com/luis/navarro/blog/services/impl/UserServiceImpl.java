@@ -1,5 +1,6 @@
 package com.luis.navarro.blog.services.impl;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		Set<Role> roles = new HashSet<>(roleRepo.findAll());
+		Set<Role> roles = new HashSet<>(Arrays.asList(roleRepo.findByName("USER")));
 		user.setRoles(roles);
 		userRepo.save(user);
 	}
@@ -41,6 +42,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUsername(String username) {
 		return userRepo.findByUsername(username);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return userRepo.findByEmail(email);
 	}
 
 }

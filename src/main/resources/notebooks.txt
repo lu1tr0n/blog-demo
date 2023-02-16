@@ -1,0 +1,13 @@
+https://www.baeldung.com/spring-boot-crud-thymeleaf
+
+https://getbootstrap.com/docs/5.0/components/toasts/
+
+https://stackoverflow.com/questions/36744655/for-each-operator-in-thymeleaf
+
+https://www.baeldung.com/spring-thymeleaf-conditionals
+
+https://mkyong.com/spring-boot/spring-boot-spring-security-thymeleaf-example/
+
+https://www.baeldung.com/spring-thymeleaf-fragments
+
+https://www.webjars.org/

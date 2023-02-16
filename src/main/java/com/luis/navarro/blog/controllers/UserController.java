@@ -44,10 +44,6 @@ public class UserController {
             return "frontend/registration";
         }
 
-        userForm.setEmail("luis@yopmail.com");
-        userForm.setFirstName("test1");
-        userForm.setLastName("test2");
-        userForm.setRoles(null);
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
@@ -57,7 +53,7 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model, String error, String logout, HttpServletResponse httpResponse) {
         if (securityService.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/welcome";
         }
 
         if (error != null)
@@ -70,7 +66,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(Model model, String error, String logout) {
         if (securityService.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/welcome";
         }
 
         if (error != null)

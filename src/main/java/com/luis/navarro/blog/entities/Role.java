@@ -31,6 +31,9 @@ public class Role implements Serializable{
 
     private String name;
 
+    /* @description: fix in relational with table
+     * https://www.baeldung.com/jpa-many-to-many
+     * */
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 }

@@ -10,4 +10,5 @@ import com.luis.navarro.blog.entities.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Serializable> {
 
+	public Role findByName(String name);
 }
